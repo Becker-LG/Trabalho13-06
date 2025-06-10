@@ -128,17 +128,22 @@ conexao.close()'''
 
 app = Flask(__name__)
 
-@app.routes("/")
-def home():
-    return render_template("")
+@app.route("/")
+def about():
+    return render_template("about.html")
 
-@app.routes("/register")
+@app.route("/register")
 def register():
-    return render_template("")
+    return render_template("register.html")
 
-@app.routes("/table")
+@app.route("/table")
 def table():
-    return render_template("")
+    return render_template("table.html")
+
+@app.route("/tableAval")
+def tableAval():
+    return render_template("tableAval.html")
+
+app.run()
 
 #conexao.commit()
-conexao.close()

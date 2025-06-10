@@ -1,9 +1,37 @@
-{% extends 'main_template.html' %}
+<!doctype html>
 
-{% block header %}
-  <h1>{% block title %}Sobre{% endblock %}</h1>
-{% endblock %}
+<head>
+    <title>{% block title %}{% endblock %} - Sistema CadPes</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/mycss.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
 
-{% block content %}
-  Sistema de cadastro de pessoas 1.0
-{% endblock %}
+<body>
+    <header>
+        <div class="center">
+            <div class="logo"><img src="./static/images/Coffee.png" /></div><!--logo-->
+            <div class="menu">
+                <a href="{{ url_for('register') }}">Cadastro</a> | 
+                <a href="{{ url_for('table') }}"> Lista</a> |
+                <a href="{{ url_for('tableAval') }}"> Melhores Avaliados </a>
+            </div><!--menu -->
+        </div><!--  center-->
+     </header>
+
+    <section class="Sobre">
+        <div class="center">
+            <div class="texto-sobre">
+                <h1>Bem vindo</h1>
+                <p>Um site sobre filmes onde disponibilizamos informações sobre: diretor, tempo de duração, classificação etária, avaliação em sites como Rotten Tomatos e 
+                    mais!!!!
+                </p>
+                <a href="{{ url_for('register') }}"><button>Cadastre-se</button></a>
+            </div>
+        </div>
+     </section>
+    <section class="content">
+        <header> {% block header %}{% endblock %} </header>
+
+        {% block content %}{% endblock %}
+    </section>
+</body>

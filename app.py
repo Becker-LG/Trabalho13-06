@@ -5,9 +5,12 @@ Baseado no modelo 10 - completo
 FEEEITOOOOOOOOOOOO
 
 2) A página WEB deve ter no mínimo 4 caminhos (/about, /cadastro, etc).
-VAI TER: cadastro, listagem de filmes, página inicial, FALTA UMA
+VAI TER: cadastro, listagem de filmes, página inicial, tabelaAvaliação
 
 3) Dentro da página WEB, deve ter a listagem separada da página do cadastro. Também deve ter no mínimo 3 elementos diferentes, tipo ComboBox, DropDown, CheckBox, etc.
+Radio = classe etária
+CheckBox = Gênero
+DataList = idioma
 
 4) Deve ter na página a opção para carregar/trocar a imagem de fundo da página.
 
@@ -41,6 +44,7 @@ comandoSQL = '''CREATE TABLE IF NOT EXISTS filme (
                 nome VARCHAR(200) NOT NULL,
                 diretor VARCHAR(200) NOT NULL,
                 genero VARCHAR(200),
+                idioma VARCHAR(45),
                 dataLanca DATE,
                 duracao INTEGER NOT NULL,
                 avalIMDB FLOAT,
@@ -58,32 +62,32 @@ comandoSQL = '''CREATE TABLE IF NOT EXISTS imagem (
 
 ###### CRUD FILMES ######
 
-def F_Insert(nome, diretor, genero, dataLanca, duracao, avalIMDB, avalRotten, ganho, claEtaria):
-    cursor.execute('''INSERT INTO filmes (nome, diretor, genero, dataLanca, duracao, avalIMDB, avalRotten, ganho, claEtaria)
+def F_Insert(nome, diretor, genero, idioma, dataLanca, duracao, avalIMDB, avalRotten, ganho, claEtaria):
+    cursor.execute('''INSERT INTO filmes (nome, diretor, genero, idioma, dataLanca, duracao, avalIMDB, avalRotten, ganho, claEtaria)
                     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)''',
-                    (nome, diretor, genero, dataLanca, duracao, avalIMDB, avalRotten, ganho, claEtaria))
+                    (nome, diretor, genero, idioma, dataLanca, duracao, avalIMDB, avalRotten, ganho, claEtaria))
     return
 
 def F_SelectNome(nome):
-    cursor.execute('''SELECT nome, diretor, genero, dataLanca, duracao, avalIMDB, avalRotten, ganho, claEtaria FROM filmes
+    cursor.execute('''SELECT nome, diretor, genero, idioma, dataLanca, duracao, avalIMDB, avalRotten, ganho, claEtaria FROM filmes
                    WHERE nome = ?''', nome)
     registros = cursor.fetchall()
-    nome, diretor, genero, dataLanca, duracao, avalIMDB, avalRotten, ganho, claEtaria = registros[0]
-    return [nome, diretor, genero, dataLanca, duracao, avalIMDB, avalRotten, ganho, claEtaria]
+    nome, diretor, genero, idioma, dataLanca, duracao, avalIMDB, avalRotten, ganho, claEtaria = registros[0]
+    return [nome, diretor, genero, idioma, dataLanca, duracao, avalIMDB, avalRotten, ganho, claEtaria]
 
 def F_SelectGenero(genero):
-    cursor.execute('''SELECT nome, diretor, genero, dataLanca, duracao, avalIMDB, avalRotten, ganho, claEtaria FROM filmes
+    cursor.execute('''SELECT nome, diretor, genero, idioma, dataLanca, duracao, avalIMDB, avalRotten, ganho, claEtaria FROM filmes
                    WHERE genero = ?''', genero)
     registros = cursor.fetchall()
-    nome, diretor, genero, dataLanca, duracao, avalIMDB, avalRotten, ganho, claEtaria = registros[0]
-    return [nome, diretor, genero, dataLanca, duracao, avalIMDB, avalRotten, ganho, claEtaria]
+    nome, diretor, genero, idioma, dataLanca, duracao, avalIMDB, avalRotten, ganho, claEtaria = registros[0]
+    return [nome, diretor, genero, idioma, dataLanca, duracao, avalIMDB, avalRotten, ganho, claEtaria]
 
 def F_SelectClaEtaria(claEtaria):
-    cursor.execute('''SELECT nome, diretor, genero, dataLanca, duracao, avalIMDB, avalRotten, ganho, claEtaria FROM filmes
+    cursor.execute('''SELECT nome, diretor, genero, idioma, dataLanca, duracao, avalIMDB, avalRotten, ganho, claEtaria FROM filmes
                    WHERE claEtaria = ?''', claEtaria)
     registros = cursor.fetchall()
-    nome, diretor, genero, dataLanca, duracao, avalIMDB, avalRotten, ganho, claEtaria = registros[0]
-    return [nome, diretor, genero, dataLanca, duracao, avalIMDB, avalRotten, ganho, claEtaria]
+    nome, diretor, genero, idioma, dataLanca, duracao, avalIMDB, avalRotten, ganho, claEtaria = registros[0]
+    return [nome, diretor, genero, idioma, dataLanca, duracao, avalIMDB, avalRotten, ganho, claEtaria]
 
 def F_DeleteId(id):
     cursor.execute('''DELETE FROM filmes WHERE id = ?''', id)
@@ -134,7 +138,8 @@ def about():
 
 @app.route("/register")
 def register():
-    return render_template("register.html")
+    valores = []
+    return render_template("register.html", valores = valores)
 
 @app.route("/table")
 def table():

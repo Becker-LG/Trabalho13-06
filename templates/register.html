@@ -1,45 +1,113 @@
 <!doctype html>
 <html lang="pt">
 <head>
-    <title>Realize seu login</title>
+    <title>Cadastro de Filmes</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/registerCss.css') }}">
 </head>
 <body>
+    <div class="principal">
+        <h1>Cadastro de Filmes</h1>
+        <form action="{{ url_for('table')}}">
+            <div class="campo" id="nome">
+                <input type="text" placeholder="Nome" id="nome" name="campoNome"> 
+            </div>
+
+            <div class="campo" id="diretor">
+                <input type="text" placeholder="Diretor" id="diretor" name="campoDiretor">
+            </div>
+
+            <div class="campo" id="genero">
+                <input type="checkbox" name="campoSuspense" value="suspense"
+                    {% if "suspense" in valores[] %} checked {% endif %}>Suspense<br />
+                <input type="checkbox" name="campoDrama" value="drama"
+                    {% if "drama" in valores[] %} checked {% endif %}>Drama<br />
+                <input type="checkbox" name="campoAcao" value="acao"
+                    {% if "acao" in valores[] %} checked {% endif %}>Ação<br />
+                <!--checkbox-->
+            </div>
+
+            <div class="campo">
+                Escolha o Idioma:
+                <input list="idioma" name="campoIdioma" value="{{ valores[] }}">
+                <datalist id="idioma">
+                    <option value="Inglês">
+                    <option value="Português">
+                    <option value="Francês">
+                    <option value="Russo">
+                    <option value="Italiano">
+                    <option value="Outro">
+                </datalist>
+                <!--dataList-->
+            </div>
+
+            <div class="campo">
+                <input type="text" placeholder="Data de Lançamento (dd-mm-aaaa)" name="dataLanc">
+            </div>
+
+            <div class="campo">
+                <input type="text" placeholder="Duração" name="duracao">
+            </div>
+
+            <div class="campo">
+                <input type="text" placeholder="Avaliação IMDB" name="avalIMDB">
+            </div>
+
+            <div class="campo">
+                <input type="text" placeholder="Avaliação Rotten Tomatoes" name="avalRotten">
+            </div>
+
+            <div class="campo">
+                <input type="text" placeholder="Ganho do Filme" name="ganho">
+            </div>
+
+            <div class="campo" id="claEtaria">
+                <input type="radio" name="campoClaEtaria" value="Livre" {% if valores[]=="Livre" %} checked {% endif %}> Livre <br>
+                <input type="radio" name="campoClaEtaria" value="10 anos"{% if valores[]=="10 anos" %} checked {% endif %}> 10 anos <br>
+                <input type="radio" name="campoClaEtaria" value="12 anos" {% if valores[]=="12 anos" %} checked {% endif %}> 12 anos <br>
+                <input type="radio" name="campoClaEtaria" value="14 anos" {% if valores[]=="14 anos" %} checked {% endif %}> 14 anos <br>
+                <input type="radio" name="campoClaEtaria" value="16 anos" {% if valores[]=="16 anos" %} checked {% endif %}> 16 anos <br>
+                <input type="radio" name="campoClaEtaria" value="18 anos" {% if valores[]=="18 anos" %} checked {% endif %}> 18 anos <br>
+                <!--combobox-->
+            </div>
+
+            <button class="glow-on-hover">Registrar-me</button>
+        </form>
+    </div>
+    <!--
     <form action="" method="post">
 
         <label for="nome">Nome</label>
-        <input type="text" id="nome" placeholder="kill bill">
+        <input type="text" id="nome" placeholder="kill bill"> <br>
 
         <label for="diretor">Diretor</label>
-        <input type="text" id="diretor" placeholder="wes anderson">
+        <input type="text" id="diretor" placeholder="wes anderson"> <br>
 
         <label for="genero">Gênero do Filme</label>
-        <input type="text" id="genero" placeholder="romance">
+        <input type="text" id="genero" placeholder="romance"> <br>
+
+        <label for="idioma">Classificação Etária</label>
+        <input type="text" id="idioma" placeholder="Inglês"> <br>
 
         <label for="dataLanc">Data de Lançamento</label>
-        <input type="text" id="dataLanc" placeholder="13-12-2007">
+        <input type="text" id="dataLanc" placeholder="13-12-2007"> <br>
 
         <label for="duracao">Duração</label>
-        <input type="number" id="duracao" placeholder="144">
+        <input type="number" id="duracao" placeholder="144"> <br>
 
         <label for="avalIMDB">Avaliação do IMDB</label>
-        <input type="number" id="avalIMDB" placeholder="9,3">
+        <input type="number" id="avalIMDB" placeholder="9,3"> <br>
 
         <label for="avalRotten">Avalicação Rotten Tomatos</label>
-        <input type="number" id="avalRotten" placeholder="78">
+        <input type="number" id="avalRotten" placeholder="78"> <br>
 
         <label for="ganho">Ganho de Bilheteria</label>
-        <input type="number" id="ganho" placeholder="100">
+        <input type="number" id="ganho" placeholder="100"> <br>
 
         <label for="claEtaria">Classificação Etária</label>
-        <input type="number" id="claEtaria" placeholder="14">
-
-
-
-
-
+        <input type="number" id="claEtaria" placeholder="14"> <br>
+    -->
     </form>
 </body>
 

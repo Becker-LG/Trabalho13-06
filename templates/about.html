@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
-<body>
+<body style="background-image: url('{{ url_for('static',filename='background.jpg') }}')">
     <header>
         <div class="center">
             <div class="logo"><img src="./static/images/Coffee.png" /></div><!--logo-->
@@ -19,6 +19,16 @@
      </header>
 
     <section class="Sobre">
+        <div class="extras">
+            <div class = "social_media">
+                <form action="">
+                    <label for="link">Coloque um link de uma imagem:</label>
+                    <input type="text" id="link" name="link"> <br>
+                    <button>Enviar</button>
+                </form>
+            </div>
+        </div><!--extras-->
+
         <div class="center">
             <div class="texto-sobre">
                 <h1>Bem vindo</h1>

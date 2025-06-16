@@ -28,10 +28,9 @@ conexao.close()
 
 app = Flask(__name__)
 
-@app.route("/")
-def about():
+@app.route("/teste")
+def teste():
     imagem = request.args.get("imagem")
-    print(imagem)
     return render_template("teste.html", imagem = imagem)
 
 app.run()

@@ -13,6 +13,7 @@ CheckBox = Gênero
 DataList = idioma
 
 4) Deve ter na página a opção para carregar/trocar a imagem de fundo da página.
+FEITOOOOOO
 
 5) uma atividade extra  (se fizer os 4 acima, já garante o 10.0 - Dez)
 
@@ -26,7 +27,7 @@ E se agora, está na listagem, criar um botão ao lado da listagem para poder tr
 ######### VAI SER SOBRE FILMEEEESSSS ##########
 
 #Imports
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 import sqlite3
 import io
 from PIL import Image
@@ -34,6 +35,11 @@ from PIL import Image
 # <!--
 '''pip install Pillow'''
 # -->
+import requests
+# <!--
+'''pip install requests'''
+# -->
+import os
 
 # Conectar ao banco de dados
 conexao = sqlite3.connect("filmes.db")
@@ -56,7 +62,7 @@ cursor.execute(comandoSQL)
 
 comandoSQL = '''CREATE TABLE IF NOT EXISTS imagem (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
-                imagem BLOB NOT NULL)'''
+                imagem VARCHAR(500) NOT NULL)'''
 
 # Funções =========================================================================================================================================================
 
@@ -105,6 +111,25 @@ def I_Select():
     id, imagem = registros[0]
     return [id, imagem]
 
+
+###### BAIXAR IMAGEM ######
+
+def BaixarImagem(url, pasta_destino, nome_arquivo):
+    try:
+        # Garante que a pasta existe
+        os.makedirs(pasta_destino, exist_ok=True)
+        
+        caminho_completo = os.path.join(pasta_destino, nome_arquivo)
+        
+        resposta = requests.get(url)
+        resposta.raise_for_status()
+
+        with open(caminho_completo, 'wb') as arquivo:
+            arquivo.write(resposta.content)
+        print(f"Imagem salva em: {caminho_completo}")
+    except requests.exceptions.RequestException as e:
+        print(f"Erro ao baixar a imagem: {e}")
+
 '''
 conexao = sqlite3.connect("./testes/testes.db")
 cursor = conexao.cursor()
@@ -134,6 +159,9 @@ app = Flask(__name__)
 
 @app.route("/")
 def about():
+    link = request.args.get('link')
+    BaixarImagem(link, 'static', 'background.jpg')
+
     return render_template("about.html")
 
 @app.route("/register")

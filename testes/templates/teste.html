@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
-<body>
+<body style="background-image: url('../{{imagem}}')">
     <!--
     <label for="cars">Choose a car:</label>
 
@@ -31,7 +31,7 @@
     <label for="javascript">JavaScript</label>
     -->
 
-    <form>
+    <form action="{{ url_for('teste')}}">
       <label for="imagem">Selecione uma imagem:</label>
       <input type="file" name="imagem" id="imagem" accept="image/*" />
       <button type="submit">Enviar Imagem</button>

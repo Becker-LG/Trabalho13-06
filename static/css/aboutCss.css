@@ -47,6 +47,29 @@ section.sobre{
     position: relative;
 }
 
+.extras{
+    position: absolute;
+    bottom:-450px;
+    right:-500px;
+    width:1000px;
+    height:1000px;
+    border-radius: 50%;
+    background-color: #017143;
+}   
+
+.social_media{
+    position: absolute;
+    right: 500px;
+    top: 200px;
+}
+
+.social_media img{
+    display: block;
+    width: 40px;
+    height: 40px;
+    margin: 20px 0;
+}
+
 .texto-sobre{
     margin-top: 100px;
 }

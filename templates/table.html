@@ -6,6 +6,33 @@
     <title>Table</title>
 </head>
 <body>
-    
+    <table border="1">
+        <tr>
+            <td>Nome</td>
+            <td>Diretor</td>
+            <td>Gênero</td>
+            <td>Idioma</td>
+            <td>Data Lançamento</td>
+            <td>Duração</td>
+            <td>Ganho de Bilheteria</td>
+            <td>Classificação Etária</td>
+
+        </tr>
+
+        {% for f in filmes %}
+        <tr>
+            <td>{{f[0]}}</td>
+            <td>{{f[1]}}</td>
+            <td>{{f[2]}}</td>
+            <td>{{f[3]}}</td>
+            <td>{{f[4]}}</td>
+            <td>{{f[5]}}</td>
+            <td>{{f[8]}}</td>
+            <td>{{f[9]}}</td>
+
+
+        </tr>
+        {% endfor %}
+    </table>
 </body>
 </html>

@@ -42,10 +42,10 @@ import requests
 import os
 
 # Conectar ao banco de dados
-conexao = sqlite3.connect("filmes.db")
+conexao = sqlite3.connect("filmes.db", check_same_thread=False)
 cursor = conexao.cursor()
 
-comandoSQL = '''CREATE TABLE IF NOT EXISTS filme (
+comandoSQL = '''CREATE TABLE IF NOT EXISTS filmes (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 nome VARCHAR(200) NOT NULL,
                 diretor VARCHAR(200) NOT NULL,
@@ -56,13 +56,15 @@ comandoSQL = '''CREATE TABLE IF NOT EXISTS filme (
                 avalIMDB FLOAT,
                 avalRotten FLOAT,
                 ganho FLOAT,
-                claEtaria BOOLEAN)'''
+                claEtaria INTEGER)'''
 
 cursor.execute(comandoSQL)
 
 comandoSQL = '''CREATE TABLE IF NOT EXISTS imagem (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 imagem VARCHAR(500) NOT NULL)'''
+
+cursor.execute(comandoSQL)
 
 # Funções =========================================================================================================================================================
 
@@ -72,13 +74,22 @@ def F_Insert(nome, diretor, genero, idioma, dataLanca, duracao, avalIMDB, avalRo
     cursor.execute('''INSERT INTO filmes (nome, diretor, genero, idioma, dataLanca, duracao, avalIMDB, avalRotten, ganho, claEtaria)
                     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)''',
                     (nome, diretor, genero, idioma, dataLanca, duracao, avalIMDB, avalRotten, ganho, claEtaria))
-    return
+    
+    conexao.commit()
+    return 'Feito!'
+
+def F_SelectTudo():
+    cursor.execute('''SELECT nome, diretor, genero, idioma, dataLanca, duracao, avalIMDB, avalRotten, ganho, claEtaria FROM filmes''')
+    registros = cursor.fetchall()
+
+    return registros
 
 def F_SelectNome(nome):
     cursor.execute('''SELECT nome, diretor, genero, idioma, dataLanca, duracao, avalIMDB, avalRotten, ganho, claEtaria FROM filmes
                    WHERE nome = ?''', nome)
     registros = cursor.fetchall()
     nome, diretor, genero, idioma, dataLanca, duracao, avalIMDB, avalRotten, ganho, claEtaria = registros[0]
+
     return [nome, diretor, genero, idioma, dataLanca, duracao, avalIMDB, avalRotten, ganho, claEtaria]
 
 def F_SelectGenero(genero):
@@ -162,6 +173,8 @@ def about():
     link = request.args.get('link')
     BaixarImagem(link, 'static', 'background.jpg')
 
+    print(F_Insert('Teste', 'Teste', 'Teste', 'Teste', '12-12-1212', 200, 100, 100, 1000000, 12))
+
     return render_template("about.html")
 
 @app.route("/register")
@@ -171,11 +184,15 @@ def register():
 
 @app.route("/table")
 def table():
-    return render_template("table.html")
+    filmes = F_SelectTudo()
+
+    return render_template("table.html", filmes = filmes)
 
 @app.route("/tableAval")
 def tableAval():
-    return render_template("tableAval.html")
+    filmes = F_SelectTudo()
+
+    return render_template("tableAval.html", filmes = filmes)
 
 app.run()
 

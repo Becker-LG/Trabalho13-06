@@ -173,7 +173,7 @@ def about():
     link = request.args.get('link')
     BaixarImagem(link, 'static', 'background.jpg')
 
-    print(F_Insert('Teste', 'Teste', 'Teste', 'Teste', '12-12-1212', 200, 100, 100, 1000000, 12))
+    #print(F_Insert('Teste', 'Teste', 'Teste', 'Teste', '12-12-1212', 200, 100, 100, 1000000, 12))
 
     return render_template("about.html")
 

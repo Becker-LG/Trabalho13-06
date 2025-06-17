@@ -8,6 +8,9 @@
 </head>
 <body>
     <div class="principal">
+             <a href="{{ url_for("tableAval") }}">Melhores Avaliações</a>
+            <a href="{{ url_for("table") }}">Lista </a>
+            <a href="{{ url_for("about") }}">Home</a>
         <h1>Cadastro de Filmes</h1>
         <form action="{{ url_for('table')}}">
             <div class="campo" id="nome">

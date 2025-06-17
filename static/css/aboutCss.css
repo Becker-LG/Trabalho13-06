@@ -49,25 +49,25 @@ section.sobre{
 
 .extras{
     position: absolute;
-    bottom:-450px;
-    right:-500px;
-    width:1000px;
+    bottom:-600px;
+    right:-700px;
+    width:600px;
     height:1000px;
-    border-radius: 50%;
-    background-color: #017143;
+    background-color: #e2e9e2;
 }   
 
 .social_media{
     position: absolute;
-    right: 500px;
-    top: 200px;
+    right: 700px;
+    top: 300px;
 }
 
 .social_media img{
     display: block;
     width: 40px;
     height: 40px;
-    margin: 20px 0;
+    margin: 50px 0;
+    position:fixed
 }
 
 .texto-sobre{

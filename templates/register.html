@@ -8,11 +8,11 @@
 </head>
 <body>
     <div class="principal">
-             <a href="{{ url_for("tableAval") }}">Melhores Avaliações</a>
-            <a href="{{ url_for("table") }}">Lista </a>
-            <a href="{{ url_for("about") }}">Home</a>
+             <a href="{{ url_for("about") }}">Página Inicial</a> |
+            <a href="{{ url_for("table") }}">Todos os Filmes</a> |
+            <a href="{{ url_for("tableAval") }}">Melhores Filmes</a>
         <h1>Cadastro de Filmes</h1>
-        <form action="{{ url_for('table')}}">
+        <form action="{{ url_for('register')}}">
             <div class="campo" id="nome">
                 <input type="text" placeholder="Nome" id="nome" name="campoNome"> 
             </div>
@@ -43,23 +43,23 @@
             </div>
 
             <div class="campo">
-                <input type="text" placeholder="Data de Lançamento (dd-mm-aaaa)" name="dataLanc">
+                <input type="text" placeholder="Data de Lançamento (dd-mm-aaaa)" name="campoDataLanc">
             </div>
 
             <div class="campo">
-                <input type="text" placeholder="Duração" name="duracao">
+                <input type="text" placeholder="Duração" name="campoDuracao">
             </div>
 
             <div class="campo">
-                <input type="text" placeholder="Avaliação IMDB" name="avalIMDB">
+                <input type="text" placeholder="Avaliação IMDB" name="campoAvalIMDB">
             </div>
 
             <div class="campo">
-                <input type="text" placeholder="Avaliação Rotten Tomatoes" name="avalRotten">
+                <input type="text" placeholder="Avaliação Rotten Tomatoes" name="campoAvalRotten">
             </div>
 
             <div class="campo">
-                <input type="text" placeholder="Ganho do Filme" name="ganho">
+                <input type="text" placeholder="Ganho do Filme" name="campoGanho">
             </div>
 
             <div class="campo" id="claEtaria">

@@ -92,19 +92,12 @@ def F_SelectNome(nome):
 
     return [nome, diretor, genero, idioma, dataLanca, duracao, avalIMDB, avalRotten, ganho, claEtaria]
 
-def F_SelectGenero(genero):
+def F_SelectMelhores():
     cursor.execute('''SELECT nome, diretor, genero, idioma, dataLanca, duracao, avalIMDB, avalRotten, ganho, claEtaria FROM filmes
-                   WHERE genero = ?''', genero)
+                   WHERE avalIMDB >= 70 OR avalRotten >= 70
+                   ORDER BY avalIMDB, avalRotten''')
     registros = cursor.fetchall()
-    nome, diretor, genero, idioma, dataLanca, duracao, avalIMDB, avalRotten, ganho, claEtaria = registros[0]
-    return [nome, diretor, genero, idioma, dataLanca, duracao, avalIMDB, avalRotten, ganho, claEtaria]
-
-def F_SelectClaEtaria(claEtaria):
-    cursor.execute('''SELECT nome, diretor, genero, idioma, dataLanca, duracao, avalIMDB, avalRotten, ganho, claEtaria FROM filmes
-                   WHERE claEtaria = ?''', claEtaria)
-    registros = cursor.fetchall()
-    nome, diretor, genero, idioma, dataLanca, duracao, avalIMDB, avalRotten, ganho, claEtaria = registros[0]
-    return [nome, diretor, genero, idioma, dataLanca, duracao, avalIMDB, avalRotten, ganho, claEtaria]
+    return registros
 
 def F_DeleteId(id):
     cursor.execute('''DELETE FROM filmes WHERE id = ?''', id)
@@ -113,14 +106,14 @@ def F_DeleteId(id):
 ###### CRUD IMAGENS ######
 
 def I_Insert(imagem):
-    cursor.execute('''INSERT INTO imagem (imagem) VALUES (?)''', imagem)
-    return
+    cursor.execute('''INSERT INTO imagem (imagem) VALUES (?)''', (imagem,))
+    conexao.commit()
+    return 'Feito!'
 
 def I_Select():
     cursor.execute('''SELECT id, imagem FROM imagem''')
     registros = cursor.fetchall()
-    id, imagem = registros[0]
-    return [id, imagem]
+    return registros
 
 
 ###### BAIXAR IMAGEM ######
@@ -141,7 +134,10 @@ def BaixarImagem(url, pasta_destino, nome_arquivo):
     except requests.exceptions.RequestException as e:
         print(f"Erro ao baixar a imagem: {e}")
 
+
 '''
+IDEIA INICIAL DE COMO COLOCAR IMAGEM NO SITE
+
 conexao = sqlite3.connect("./testes/testes.db")
 cursor = conexao.cursor()
 
@@ -170,8 +166,17 @@ app = Flask(__name__)
 
 @app.route("/")
 def about():
-    link = request.args.get('link')
-    BaixarImagem(link, 'static', 'background.jpg')
+    link = request.args.get('link') if request.args.get('link') else ""
+    if link != '':
+        BaixarImagem(link, 'static', 'background.jpg')
+        imagens = I_Select()
+        x = 0
+        for i in imagens:
+            if i[1] == link:
+                x += 1
+
+        if x == 0:
+            I_Insert(link)
 
     #print(F_Insert('Teste', 'Teste', 'Teste', 'Teste', '12-12-1212', 200, 100, 100, 1000000, 12))
 
@@ -180,6 +185,26 @@ def about():
 @app.route("/register")
 def register():
     valores = []
+    valores.append(request.args.get('campoNome') if request.args.get('campoNome') else "")
+    valores.append(request.args.get('campoDiretor') if request.args.get('campoDiretor') else "")
+    valores.append(request.args.get('campoIdioma') if request.args.get('campoIdioma') else "")
+    valores.append(request.args.get('campoDataLanc') if request.args.get('campoDataLanc') else "")
+    valores.append(request.args.get('campoDuracao') if request.args.get('campoDuracao') else "")
+    valores.append(request.args.get('campoAvalIMDB') if request.args.get('campoAvalIMDB') else "")
+    valores.append(request.args.get('campoAvalRotten') if request.args.get('campoAvalRotten') else "")
+    valores.append(request.args.get('campoGanho') if request.args.get('campoGanho') else "")
+    valores.append(request.args.get('campoClaEtaria') if request.args.get('campoClaEtaria') else "")
+
+    s = ""
+    s += " " + request.args.get('campoSuspense') if request.args.get('campoSuspense') else ""
+    s += " " + request.args.get('campoDrama') if request.args.get('campoDrama') else ""
+    s += " " + request.args.get('campoAcao') if request.args.get('campoAcao') else ""
+    valores.append(s)
+
+    if valores[0] != "":
+        print(valores)
+        F_Insert(valores[0], valores[1], valores[9], valores[2], valores[3], valores[4], valores[5], valores[6], valores[7], valores[8])
+
     return render_template("register.html", valores = valores)
 
 @app.route("/table")
@@ -190,7 +215,7 @@ def table():
 
 @app.route("/tableAval")
 def tableAval():
-    filmes = F_SelectTudo()
+    filmes = F_SelectMelhores()
 
     return render_template("tableAval.html", filmes = filmes)
 

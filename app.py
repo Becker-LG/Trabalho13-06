@@ -18,6 +18,7 @@ FEITOOOOOO
 5) uma atividade extra  (se fizer os 4 acima, já garante o 10.0 - Dez)
 
 Salvar o caminho da imagem de fundo, na base de dados (tabela).
+FEITOOOOOOOOOOOO
 
 Já que esta salva, pode adicionar ela na listagem e ter uma imagem para cada cadastro.
 
@@ -32,7 +33,7 @@ import sqlite3
 import io
 from PIL import Image
 #tem que dar
-# <!--
+# <!-- NÃO PRECISA MAIS DO PILLOW ##############################
 '''pip install Pillow'''
 # -->
 import requests
